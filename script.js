@@ -1,40 +1,27 @@
-/* =========================
-ELEMENTS
-========================= */
+/* ELEMENTS */
 
 const clock =
   document.getElementById("clock");
 
-const dateElement =
-  document.getElementById("date");
-
 const greeting =
   document.getElementById("greeting");
 
-const usernameInput =
-  document.getElementById("username");
+const date =
+  document.getElementById("date");
 
 const temperature =
   document.getElementById("temperature");
 
-const weatherDescription =
-  document.getElementById("weather-description");
-
-const searchForm =
-  document.getElementById("searchForm");
-
-const searchInput =
-  document.getElementById("searchInput");
-
 const themeToggle =
   document.getElementById("themeToggle");
 
-const shortcutsGrid =
-  document.getElementById("shortcutsGrid");
+const settingsBtn =
+  document.getElementById("settingsBtn");
 
-/* =========================
-CLOCK
-========================= */
+const settingsPanel =
+  document.getElementById("settingsPanel");
+
+/* CLOCK */
 
 function updateClock() {
 
@@ -48,7 +35,7 @@ function updateClock() {
       minute: "2-digit",
     });
 
-  dateElement.textContent =
+  date.textContent =
     now.toLocaleDateString([], {
 
       weekday: "long",
@@ -63,75 +50,85 @@ function updateClock() {
 
 function updateGreeting(hour) {
 
-  let greetingText =
+  let text =
     "Good Evening";
 
   if (hour < 12) {
 
-    greetingText =
+    text =
       "Good Morning";
   }
 
   else if (hour < 18) {
 
-    greetingText =
+    text =
       "Good Afternoon";
   }
 
-  const username =
-    localStorage.getItem("username") || "";
-
   greeting.textContent =
-    `${greetingText}${username ? ", " + username : ""}`;
+    text;
 }
 
 setInterval(updateClock, 1000);
 
 updateClock();
 
-/* =========================
-USERNAME
-========================= */
+/* SEARCH */
 
-const savedUsername =
-  localStorage.getItem("username");
+document
+  .getElementById("searchForm")
+  .addEventListener("submit", (e) => {
 
-if (savedUsername) {
+    e.preventDefault();
 
-  usernameInput.value =
-    savedUsername;
+    const query =
+      document
+      .getElementById("searchInput")
+      .value
+      .trim();
+
+    if (!query) return;
+
+    window.location.href =
+      `https://google.com/search?q=${encodeURIComponent(query)}`;
+  });
+
+/* WEATHER */
+
+async function getWeather(lat, lon) {
+
+  try {
+
+    const response =
+      await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+      );
+
+    const data =
+      await response.json();
+
+    temperature.textContent =
+      `${Math.round(data.current_weather.temperature)}°C`;
+
+  } catch {
+
+    temperature.textContent =
+      "--°";
+  }
 }
 
-usernameInput.addEventListener("input", () => {
+navigator.geolocation.getCurrentPosition(
 
-  localStorage.setItem(
-    "username",
-    usernameInput.value
-  );
+  (position) => {
 
-  updateClock();
-});
+    getWeather(
+      position.coords.latitude,
+      position.coords.longitude
+    );
+  }
+);
 
-/* =========================
-SEARCH
-========================= */
-
-searchForm.addEventListener("submit", (e) => {
-
-  e.preventDefault();
-
-  const query =
-    searchInput.value.trim();
-
-  if (!query) return;
-
-  window.location.href =
-    `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-});
-
-/* =========================
-THEME
-========================= */
+/* THEME */
 
 function applyTheme(theme) {
 
@@ -191,64 +188,15 @@ themeToggle.addEventListener("click", () => {
   );
 });
 
-/* =========================
-WEATHER
-========================= */
+/* BOOKMARKS */
 
-async function getWeather(lat, lon) {
+const bookmarks = [
 
-  try {
-
-    const response =
-      await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
-      );
-
-    const data =
-      await response.json();
-
-    temperature.textContent =
-      `${Math.round(data.current_weather.temperature)}°C`;
-
-    weatherDescription.textContent =
-      "Minimal weather vibes";
-
-  } catch {
-
-    weatherDescription.textContent =
-      "Weather unavailable";
-  }
-}
-
-function getLocation() {
-
-  if (!navigator.geolocation) return;
-
-  navigator.geolocation.getCurrentPosition(
-
-    (position) => {
-
-      getWeather(
-        position.coords.latitude,
-        position.coords.longitude
-      );
-    },
-
-    () => {
-
-      weatherDescription.textContent =
-        "Location denied";
-    }
-  );
-}
-
-getLocation();
-
-/* =========================
-SHORTCUTS
-========================= */
-
-const defaultShortcuts = [
+  {
+    name: "GitHub",
+    icon: "fa-brands fa-github",
+    url: "https://github.com",
+  },
 
   {
     name: "YouTube",
@@ -257,9 +205,9 @@ const defaultShortcuts = [
   },
 
   {
-    name: "GitHub",
-    icon: "fa-brands fa-github",
-    url: "https://github.com",
+    name: "Gmail",
+    icon: "fa-solid fa-envelope",
+    url: "https://mail.google.com",
   },
 
   {
@@ -273,150 +221,103 @@ const defaultShortcuts = [
     icon: "fa-brands fa-figma",
     url: "https://figma.com",
   },
+];
+
+const bookmarksRow =
+  document.getElementById("bookmarksRow");
+
+bookmarks.forEach((bookmark) => {
+
+  const element =
+    document.createElement("a");
+
+  element.className =
+    "bookmark";
+
+  element.href =
+    bookmark.url;
+
+  element.target =
+    "_blank";
+
+  element.innerHTML = `
+    <i class="${bookmark.icon}"></i>
+    <span>${bookmark.name}</span>
+  `;
+
+  bookmarksRow.appendChild(element);
+});
+
+/* SETTINGS */
+
+settingsBtn.addEventListener("click", () => {
+
+  settingsPanel.classList.toggle(
+    "hidden"
+  );
+});
+
+/* TOGGLES */
+
+const toggles = [
 
   {
-    name: "Notion",
-    icon: "fa-solid fa-book",
-    url: "https://notion.so",
+    id: "toggleBookmarks",
+    target: "bookmarksSection",
   },
 
   {
-    name: "Gmail",
-    icon: "fa-solid fa-envelope",
-    url: "https://mail.google.com",
+    id: "toggleWeather",
+    target: "weatherBlock",
+  },
+
+  {
+    id: "toggleClock",
+    target: "clockBlock",
+  },
+
+  {
+    id: "toggleMusic",
+    target: "musicSection",
   },
 ];
 
-function loadShortcuts() {
+toggles.forEach((toggle) => {
 
-  const shortcuts =
-    JSON.parse(
-      localStorage.getItem("shortcuts")
-    ) || defaultShortcuts;
+  const checkbox =
+    document.getElementById(toggle.id);
 
-  shortcutsGrid.innerHTML = "";
+  const target =
+    document.getElementById(toggle.target);
 
-  shortcuts.forEach((shortcut) => {
+  const saved =
+    localStorage.getItem(toggle.id);
 
-    const card =
-      document.createElement("a");
+  if (saved === "false") {
 
-    card.className =
-      "shortcut-card";
+    checkbox.checked = false;
 
-    card.href =
-      shortcut.url;
-
-    card.target =
-      "_blank";
-
-    card.innerHTML = `
-      <i class="${shortcut.icon}"></i>
-      <span>${shortcut.name}</span>
-    `;
-
-    shortcutsGrid.appendChild(card);
-  });
-}
-
-loadShortcuts();
-
-/* =========================
-ADD SHORTCUT
-========================= */
-
-document
-  .getElementById("editShortcutsBtn")
-  .addEventListener("click", () => {
-
-    const shortcuts =
-      JSON.parse(
-        localStorage.getItem("shortcuts")
-      ) || defaultShortcuts;
-
-    const name =
-      prompt("Shortcut Name");
-
-    const url =
-      prompt("Shortcut URL");
-
-    const icon =
-      prompt(
-        "FontAwesome Icon Class",
-        "fa-solid fa-globe"
-      );
-
-    if (!name || !url) return;
-
-    shortcuts.push({
-
-      name,
-      url,
-      icon,
-    });
-
-    localStorage.setItem(
-      "shortcuts",
-      JSON.stringify(shortcuts)
-    );
-
-    loadShortcuts();
-  });
-
-/* =========================
-DRAGGABLE
-========================= */
-
-new Sortable(shortcutsGrid, {
-
-  animation: 250,
-
-  ghostClass:
-    "sortable-ghost",
-
-  chosenClass:
-    "sortable-chosen",
-
-  onEnd: () => {
-
-    const updated = [];
-
-    document
-      .querySelectorAll(".shortcut-card")
-      .forEach((card) => {
-
-        updated.push({
-
-          name:
-            card.querySelector("span")
-            .textContent,
-
-          icon:
-            card.querySelector("i")
-            .className,
-
-          url:
-            card.href,
-        });
-      });
-
-    localStorage.setItem(
-      "shortcuts",
-      JSON.stringify(updated)
-    );
+    target.style.display =
+      "none";
   }
+
+  checkbox.addEventListener("change", () => {
+
+    target.style.display =
+      checkbox.checked
+      ? ""
+      : "none";
+
+    localStorage.setItem(
+      toggle.id,
+      checkbox.checked
+    );
+  });
 });
 
-/* =========================
-PWA
-========================= */
+/* DRAG BOOKMARKS */
 
-if ("serviceWorker" in navigator) {
+new Sortable(bookmarksRow, {
 
-  window.addEventListener("load", () => {
-
-    navigator.serviceWorker
-      .register("sw.js")
-      .catch(console.error);
-  });
-}
+  animation: 150,
+});
