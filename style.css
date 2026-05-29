@@ -1,0 +1,576 @@
+/* =========================
+FILE: style.css
+========================= */
+
+/* =========================
+ROOT VARIABLES
+========================= */
+
+:root {
+
+  --bg: #050505;
+  --card: rgba(28, 28, 28, 0.72);
+  --card-border: rgba(255,255,255,0.05);
+
+  --text: #ffffff;
+  --text-muted: #a4a4a4;
+
+  --shadow:
+    0 10px 30px rgba(0,0,0,0.25);
+
+  --blur: blur(18px);
+
+  --accent: #d9d9d9;
+
+  --radius: 28px;
+
+  --transition:
+    all 0.35s ease;
+
+  --search-bg:
+    rgba(255,255,255,0.05);
+
+  --glow:
+    rgba(255,255,255,0.04);
+}
+
+/* =========================
+LIGHT THEME
+========================= */
+
+body.light-theme {
+
+  --bg: #f3f3f0;
+
+  --card:
+    rgba(255,255,255,0.72);
+
+  --card-border:
+    rgba(0,0,0,0.04);
+
+  --text: #111111;
+
+  --text-muted: #555555;
+
+  --shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+  --search-bg:
+    rgba(255,255,255,0.6);
+
+  --glow:
+    rgba(255,255,255,0.45);
+}
+
+/* =========================
+GLOBAL
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  transition: var(--transition);
+}
+
+/* =========================
+SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
+/* =========================
+BACKGROUND GLOW
+========================= */
+
+.bg-glow {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255,255,255,0.06),
+      transparent 30%
+    );
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+/* =========================
+LAYOUT
+========================= */
+
+.dashboard {
+
+  width: 100%;
+
+  max-width: 1400px;
+
+  margin: auto;
+
+  padding:
+    1rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.2rem;
+}
+
+/* =========================
+GLASS
+========================= */
+
+.glass {
+
+  background: var(--card);
+
+  border:
+    1px solid var(--card-border);
+
+  backdrop-filter: var(--blur);
+
+  -webkit-backdrop-filter: var(--blur);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  transition: var(--transition);
+}
+
+/* =========================
+TOP SECTION
+========================= */
+
+.top-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+.clock-wrapper {
+
+  padding: 2rem;
+}
+
+#clock {
+
+  font-size: clamp(4rem, 12vw, 7rem);
+
+  font-weight: 600;
+
+  letter-spacing: -5px;
+
+  line-height: 1;
+}
+
+.greeting-wrap {
+
+  margin-top: 1rem;
+}
+
+#greeting {
+
+  font-weight: 400;
+
+  color: var(--text-muted);
+
+  margin-bottom: 0.8rem;
+}
+
+.username-edit input {
+
+  background: transparent;
+
+  border: none;
+
+  outline: none;
+
+  color: var(--text);
+
+  font-size: 1rem;
+
+  width: 100%;
+}
+
+/* =========================
+RIGHT WIDGETS
+========================= */
+
+.right-widgets {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1rem;
+}
+
+.date-card,
+.weather-card {
+
+  padding: 1.4rem;
+}
+
+.date-card p {
+
+  font-size: 1.3rem;
+
+  font-weight: 500;
+}
+
+.weather-top {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.weather-top i {
+
+  font-size: 1.5rem;
+}
+
+.weather-top span {
+
+  font-size: 1.4rem;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.search-section {
+
+  display: flex;
+
+  justify-content: center;
+}
+
+.search-bar {
+
+  width: 100%;
+
+  max-width: 720px;
+
+  height: 64px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 0 1.5rem;
+
+  background: var(--search-bg);
+
+  transition: var(--transition);
+}
+
+.search-bar:focus-within {
+
+  transform: scale(1.02);
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.2);
+}
+
+.search-bar i {
+
+  color: var(--text-muted);
+}
+
+.search-bar input {
+
+  flex: 1;
+
+  background: transparent;
+
+  border: none;
+
+  outline: none;
+
+  color: var(--text);
+
+  font-size: 1rem;
+}
+
+/* =========================
+SHORTCUTS
+========================= */
+
+.shortcuts-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+.section-title {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.section-title h3 {
+
+  font-weight: 500;
+}
+
+.section-title button {
+
+  border: none;
+
+  background: var(--card);
+
+  color: var(--text);
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+}
+
+.shortcuts-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 1fr));
+
+  gap: 1rem;
+}
+
+.shortcut-card {
+
+  aspect-ratio: 1/1;
+
+  padding: 1rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  text-decoration: none;
+
+  color: var(--text);
+
+  transition: var(--transition);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.shortcut-card:hover {
+
+  transform: translateY(-4px);
+}
+
+.shortcut-card i {
+
+  font-size: 1.5rem;
+}
+
+.shortcut-card span {
+
+  font-size: 0.95rem;
+
+  text-align: center;
+}
+
+/* =========================
+MUSIC
+========================= */
+
+.music-section {
+
+  padding: 1.2rem;
+}
+
+.music-top {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+}
+
+.music-label {
+
+  color: var(--text-muted);
+
+  margin-bottom: 0.3rem;
+}
+
+.music-section iframe {
+
+  width: 100%;
+
+  height: 152px;
+
+  border: none;
+
+  border-radius: 20px;
+}
+
+/* =========================
+THEME TOGGLE
+========================= */
+
+.theme-toggle {
+
+  position: fixed;
+
+  right: 1rem;
+
+  bottom: 1rem;
+
+  width: 58px;
+
+  height: 58px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  cursor: pointer;
+
+  background: var(--card);
+
+  color: var(--text);
+
+  backdrop-filter: var(--blur);
+
+  box-shadow: var(--shadow);
+
+  transition: var(--transition);
+
+  z-index: 999;
+}
+
+.theme-toggle:hover {
+
+  transform: scale(1.08);
+}
+
+/* =========================
+ANIMATIONS
+========================= */
+
+.glass,
+.shortcut-card,
+.theme-toggle {
+
+  animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(12px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media (min-width: 900px) {
+
+  .dashboard {
+
+    padding: 2rem;
+  }
+
+  .top-section {
+
+    display: grid;
+
+    grid-template-columns: 1.6fr 1fr;
+
+    align-items: stretch;
+  }
+
+  .right-widgets {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .shortcuts-grid {
+
+    grid-template-columns:
+      repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
