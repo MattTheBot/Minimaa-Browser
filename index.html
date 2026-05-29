@@ -1,10 +1,9 @@
-<!-- =========================
-FILE: index.html
-========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -14,7 +13,18 @@ FILE: index.html
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
+
   <meta name="theme-color" content="#050505" />
+
+  <!-- Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Icons -->
   <link
@@ -22,58 +32,21 @@ FILE: index.html
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   />
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
 </head>
+
 <body>
 
-  <!-- Background Glow -->
-  <div class="bg-glow"></div>
+  <div class="ambient-light"></div>
 
-  <!-- App -->
   <main class="dashboard">
 
-    <!-- Top Bar -->
-    <section class="top-section">
-
-      <div class="clock-wrapper glass">
-        <div id="clock">00:00</div>
-
-        <div class="greeting-wrap">
-          <h2 id="greeting">Good Evening</h2>
-
-          <div class="username-edit">
-            <input
-              type="text"
-              id="username"
-              placeholder="Enter your name"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="right-widgets">
-
-        <div class="date-card glass">
-          <p id="date"></p>
-        </div>
-
-        <div class="weather-card glass">
-          <div class="weather-top">
-            <i class="fa-solid fa-cloud"></i>
-            <span id="temperature">--°</span>
-          </div>
-
-          <p id="weather-description">Loading weather...</p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- Search -->
+    <!-- SEARCH -->
     <section class="search-section">
-      <form id="searchForm" class="search-bar glass">
+
+      <form id="searchForm" class="search-bar">
+
         <i class="fa-solid fa-magnifying-glass"></i>
 
         <input
@@ -82,51 +55,126 @@ FILE: index.html
           placeholder="Search Google..."
           autocomplete="off"
         />
+
       </form>
+
     </section>
 
-    <!-- Shortcuts -->
+    <!-- TOP -->
+    <section class="top-section">
+
+      <!-- CLOCK -->
+      <div class="clock-wrapper widget">
+
+        <div id="clock">19:42</div>
+
+        <div class="greeting-wrap">
+
+          <h2 id="greeting">
+            Good Evening
+          </h2>
+
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+          />
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-widgets">
+
+        <div class="date-card widget">
+          <p id="date">Thursday, August 30</p>
+        </div>
+
+        <div class="weather-card widget">
+
+          <div class="weather-top">
+
+            <i class="fa-solid fa-cloud"></i>
+
+            <span id="temperature">
+              16°C
+            </span>
+
+          </div>
+
+          <p id="weather-description">
+            Few clouds
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SHORTCUTS -->
     <section class="shortcuts-section">
 
-      <div class="section-title">
+      <div class="section-header">
+
         <h3>Shortcuts</h3>
 
         <button id="editShortcutsBtn">
-          <i class="fa-solid fa-pen"></i>
+          <i class="fa-solid fa-plus"></i>
         </button>
+
       </div>
 
-      <div class="shortcuts-grid" id="shortcutsGrid"></div>
+      <div
+        class="shortcuts-grid"
+        id="shortcutsGrid"
+      ></div>
 
     </section>
 
-    <!-- Music -->
-    <section class="music-section glass">
+    <!-- MUSIC -->
+    <section class="music-section widget">
 
-      <div class="music-top">
+      <div class="music-header">
+
         <div>
-          <p class="music-label">Focus Music</p>
-          <h3>Lofi / Ambient</h3>
+
+          <p class="label">
+            Focus Music
+          </p>
+
+          <h3>
+            Ambient / Lofi
+          </h3>
+
         </div>
 
         <i class="fa-solid fa-headphones"></i>
+
       </div>
 
       <iframe
         src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6?utm_source=generator"
-        allowfullscreen=""
         loading="lazy"
+        allowfullscreen=""
       ></iframe>
 
     </section>
 
-    <!-- Theme Toggle -->
-    <button id="themeToggle" class="theme-toggle">
-      <i class="fa-solid fa-moon"></i>
-    </button>
-
   </main>
 
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="theme-toggle">
+
+    <i class="fa-solid fa-moon"></i>
+
+  </button>
+
+  <!-- Sortable -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
   <script src="script.js"></script>
+
 </body>
 </html>
