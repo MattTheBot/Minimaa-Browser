@@ -1,65 +1,52 @@
 /* =========================
-FILE: style.css
-========================= */
-
-/* =========================
-ROOT VARIABLES
+ROOT
 ========================= */
 
 :root {
 
-  --bg: #050505;
-  --card: rgba(28, 28, 28, 0.72);
-  --card-border: rgba(255,255,255,0.05);
+  /* DARK */
 
-  --text: #ffffff;
-  --text-muted: #a4a4a4;
+  --bg: #050505;
+
+  --card: #111111;
+
+  --border: #1d1d1d;
+
+  --text: #f2f2f2;
+
+  --muted: #8c8c8c;
+
+  --search: #101010;
 
   --shadow:
-    0 10px 30px rgba(0,0,0,0.25);
-
-  --blur: blur(18px);
-
-  --accent: #d9d9d9;
+    0 10px 30px rgba(0,0,0,0.22);
 
   --radius: 28px;
 
   --transition:
-    all 0.35s ease;
-
-  --search-bg:
-    rgba(255,255,255,0.05);
-
-  --glow:
-    rgba(255,255,255,0.04);
+    all .35s cubic-bezier(.4,0,.2,1);
 }
 
 /* =========================
-LIGHT THEME
+LIGHT
 ========================= */
 
 body.light-theme {
 
-  --bg: #f3f3f0;
+  --bg: #f5f5f2;
 
-  --card:
-    rgba(255,255,255,0.72);
+  --card: #e8e8e5;
 
-  --card-border:
-    rgba(0,0,0,0.04);
+  --border: #d3d3cf;
 
   --text: #111111;
 
-  --text-muted: #555555;
+  --muted: #666666;
+
+  --search: #e5e5e2;
 
   --shadow:
-    0 10px 30px rgba(0,0,0,0.08);
-
-  --search-bg:
-    rgba(255,255,255,0.6);
-
-  --glow:
-    rgba(255,255,255,0.45);
+    0 10px 25px rgba(0,0,0,0.05);
 }
 
 /* =========================
@@ -67,66 +54,52 @@ GLOBAL
 ========================= */
 
 * {
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
+
   scroll-behavior: smooth;
 }
 
 body {
 
-  font-family:
-    Inter,
-    system-ui,
-    sans-serif;
-
   background: var(--bg);
 
   color: var(--text);
 
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  transition: var(--transition);
+
   min-height: 100vh;
 
   overflow-x: hidden;
-
-  transition: var(--transition);
 }
 
 /* =========================
-SCROLLBAR
+AMBIENT
 ========================= */
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
-/* =========================
-BACKGROUND GLOW
-========================= */
-
-.bg-glow {
+.ambient-light {
 
   position: fixed;
 
   inset: 0;
 
+  pointer-events: none;
+
   background:
     radial-gradient(
       circle at top right,
-      rgba(255,255,255,0.06),
-      transparent 30%
+      rgba(120,120,120,0.05),
+      transparent 25%
     );
-
-  pointer-events: none;
-
-  z-index: -1;
 }
 
 /* =========================
@@ -137,145 +110,35 @@ LAYOUT
 
   width: 100%;
 
-  max-width: 1400px;
+  max-width: 1450px;
 
   margin: auto;
 
-  padding:
-    1rem;
+  padding: 1rem;
 
   display: flex;
 
   flex-direction: column;
 
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 /* =========================
-GLASS
+WIDGET
 ========================= */
 
-.glass {
+.widget {
 
   background: var(--card);
 
   border:
-    1px solid var(--card-border);
-
-  backdrop-filter: var(--blur);
-
-  -webkit-backdrop-filter: var(--blur);
+    1px solid var(--border);
 
   border-radius: var(--radius);
 
   box-shadow: var(--shadow);
 
   transition: var(--transition);
-}
-
-/* =========================
-TOP SECTION
-========================= */
-
-.top-section {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 1rem;
-}
-
-.clock-wrapper {
-
-  padding: 2rem;
-}
-
-#clock {
-
-  font-size: clamp(4rem, 12vw, 7rem);
-
-  font-weight: 600;
-
-  letter-spacing: -5px;
-
-  line-height: 1;
-}
-
-.greeting-wrap {
-
-  margin-top: 1rem;
-}
-
-#greeting {
-
-  font-weight: 400;
-
-  color: var(--text-muted);
-
-  margin-bottom: 0.8rem;
-}
-
-.username-edit input {
-
-  background: transparent;
-
-  border: none;
-
-  outline: none;
-
-  color: var(--text);
-
-  font-size: 1rem;
-
-  width: 100%;
-}
-
-/* =========================
-RIGHT WIDGETS
-========================= */
-
-.right-widgets {
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 1rem;
-}
-
-.date-card,
-.weather-card {
-
-  padding: 1.4rem;
-}
-
-.date-card p {
-
-  font-size: 1.3rem;
-
-  font-weight: 500;
-}
-
-.weather-top {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 0.7rem;
-
-  margin-bottom: 0.5rem;
-}
-
-.weather-top i {
-
-  font-size: 1.5rem;
-}
-
-.weather-top span {
-
-  font-size: 1.4rem;
 }
 
 /* =========================
@@ -293,9 +156,16 @@ SEARCH
 
   width: 100%;
 
-  max-width: 720px;
+  max-width: 1100px;
 
-  height: 64px;
+  height: 68px;
+
+  border-radius: 999px;
+
+  background: var(--search);
+
+  border:
+    1px solid var(--border);
 
   display: flex;
 
@@ -303,39 +173,171 @@ SEARCH
 
   gap: 1rem;
 
-  padding: 0 1.5rem;
-
-  background: var(--search-bg);
+  padding: 0 1.8rem;
 
   transition: var(--transition);
 }
 
+.search-bar:hover {
+
+  transform: translateY(-2px);
+}
+
 .search-bar:focus-within {
 
-  transform: scale(1.02);
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,0.2);
+  transform: scale(1.01);
 }
 
 .search-bar i {
 
-  color: var(--text-muted);
+  font-size: 0.95rem;
+
+  color: var(--muted);
 }
 
 .search-bar input {
 
   flex: 1;
 
+  border: none;
+
+  outline: none;
+
   background: transparent;
+
+  color: var(--text);
+
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: 0.95rem;
+
+  font-weight: 400;
+}
+
+/* =========================
+TOP
+========================= */
+
+.top-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+/* =========================
+CLOCK
+========================= */
+
+.clock-wrapper {
+
+  padding: 2rem;
+}
+
+#clock {
+
+  font-size: clamp(3.8rem, 10vw, 5.8rem);
+
+  font-weight: 500;
+
+  letter-spacing: -4px;
+
+  line-height: 1;
+}
+
+.greeting-wrap {
+
+  margin-top: 1rem;
+}
+
+#greeting {
+
+  font-size: 0.95rem;
+
+  font-weight: 400;
+
+  color: var(--muted);
+
+  margin-bottom: 0.7rem;
+}
+
+#username {
 
   border: none;
 
   outline: none;
 
+  background: transparent;
+
   color: var(--text);
 
+  font-family:
+    "Space Grotesk",
+    sans-serif;
+
+  font-size: 0.95rem;
+
+  font-weight: 400;
+}
+
+/* =========================
+RIGHT
+========================= */
+
+.right-widgets {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1rem;
+}
+
+.date-card,
+.weather-card {
+
+  padding: 1.5rem;
+}
+
+.date-card p {
+
   font-size: 1rem;
+
+  font-weight: 500;
+}
+
+.weather-top {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.weather-top i {
+
+  font-size: 1rem;
+}
+
+.weather-top span {
+
+  font-size: 1rem;
+
+  font-weight: 500;
+}
+
+.weather-card p {
+
+  font-size: 0.85rem;
+
+  color: var(--muted);
 }
 
 /* =========================
@@ -351,7 +353,7 @@ SHORTCUTS
   gap: 1rem;
 }
 
-.section-title {
+.section-header {
 
   display: flex;
 
@@ -360,26 +362,33 @@ SHORTCUTS
   justify-content: space-between;
 }
 
-.section-title h3 {
+.section-header h3 {
+
+  font-size: 0.9rem;
 
   font-weight: 500;
+
+  color: var(--muted);
 }
 
-.section-title button {
+.section-header button {
 
-  border: none;
+  width: 40px;
+
+  height: 40px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid var(--border);
 
   background: var(--card);
 
   color: var(--text);
 
-  width: 42px;
-
-  height: 42px;
-
-  border-radius: 14px;
-
   cursor: pointer;
+
+  transition: var(--transition);
 }
 
 .shortcuts-grid {
@@ -396,17 +405,22 @@ SHORTCUTS
 
   aspect-ratio: 1/1;
 
-  padding: 1rem;
+  background: var(--card);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 24px;
 
   display: flex;
 
   flex-direction: column;
 
-  justify-content: center;
-
   align-items: center;
 
-  gap: 0.7rem;
+  justify-content: center;
+
+  gap: 0.8rem;
 
   text-decoration: none;
 
@@ -414,26 +428,25 @@ SHORTCUTS
 
   transition: var(--transition);
 
-  position: relative;
-
-  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
 .shortcut-card:hover {
 
-  transform: translateY(-4px);
+  transform:
+    translateY(-3px);
 }
 
 .shortcut-card i {
 
-  font-size: 1.5rem;
+  font-size: 1.15rem;
 }
 
 .shortcut-card span {
 
-  font-size: 0.95rem;
+  font-size: 0.82rem;
 
-  text-align: center;
+  font-weight: 400;
 }
 
 /* =========================
@@ -442,10 +455,10 @@ MUSIC
 
 .music-section {
 
-  padding: 1.2rem;
+  padding: 1.3rem;
 }
 
-.music-top {
+.music-header {
 
   display: flex;
 
@@ -456,11 +469,20 @@ MUSIC
   margin-bottom: 1rem;
 }
 
-.music-label {
+.label {
 
-  color: var(--text-muted);
+  color: var(--muted);
 
-  margin-bottom: 0.3rem;
+  font-size: 0.78rem;
+
+  margin-bottom: 0.25rem;
+}
+
+.music-header h3 {
+
+  font-size: 1rem;
+
+  font-weight: 500;
 }
 
 .music-section iframe {
@@ -471,7 +493,7 @@ MUSIC
 
   border: none;
 
-  border-radius: 20px;
+  border-radius: 22px;
 }
 
 /* =========================
@@ -486,60 +508,59 @@ THEME TOGGLE
 
   bottom: 1rem;
 
-  width: 58px;
+  width: 56px;
 
-  height: 58px;
+  height: 56px;
 
   border-radius: 50%;
 
-  border: none;
-
-  cursor: pointer;
+  border:
+    1px solid var(--border);
 
   background: var(--card);
 
   color: var(--text);
 
-  backdrop-filter: var(--blur);
-
-  box-shadow: var(--shadow);
+  cursor: pointer;
 
   transition: var(--transition);
 
-  z-index: 999;
+  box-shadow: var(--shadow);
 }
 
 .theme-toggle:hover {
 
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 /* =========================
-ANIMATIONS
+SORTABLE
 ========================= */
 
-.glass,
-.shortcut-card,
-.theme-toggle {
+.sortable-ghost {
 
-  animation: fadeUp 0.6s ease;
+  opacity: 0.25;
 }
 
-@keyframes fadeUp {
+.sortable-chosen {
 
-  from {
+  transform: scale(1.03);
+}
 
-    opacity: 0;
+/* =========================
+SCROLLBAR
+========================= */
 
-    transform: translateY(12px);
-  }
+::-webkit-scrollbar {
 
-  to {
+  width: 5px;
+}
 
-    opacity: 1;
+::-webkit-scrollbar-thumb {
 
-    transform: translateY(0);
-  }
+  background: rgba(120,120,120,0.3);
+
+  border-radius: 999px;
 }
 
 /* =========================
@@ -557,15 +578,13 @@ DESKTOP
 
     display: grid;
 
-    grid-template-columns: 1.6fr 1fr;
-
-    align-items: stretch;
+    grid-template-columns:
+      1.6fr 1fr;
   }
 
   .right-widgets {
 
     grid-template-columns: 1fr;
-
   }
 
   .shortcuts-grid {
