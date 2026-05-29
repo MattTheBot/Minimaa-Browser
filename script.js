@@ -1,17 +1,22 @@
 /* =========================
-FILE: script.js
-========================= */
-
-/* =========================
 ELEMENTS
 ========================= */
 
-const clock = document.getElementById("clock");
-const dateElement = document.getElementById("date");
-const greeting = document.getElementById("greeting");
-const usernameInput = document.getElementById("username");
+const clock =
+  document.getElementById("clock");
 
-const temperature = document.getElementById("temperature");
+const dateElement =
+  document.getElementById("date");
+
+const greeting =
+  document.getElementById("greeting");
+
+const usernameInput =
+  document.getElementById("username");
+
+const temperature =
+  document.getElementById("temperature");
+
 const weatherDescription =
   document.getElementById("weather-description");
 
@@ -35,17 +40,21 @@ function updateClock() {
 
   const now = new Date();
 
-  const time = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  clock.textContent =
+    now.toLocaleTimeString([], {
 
-  clock.textContent = time;
+      hour: "2-digit",
+
+      minute: "2-digit",
+    });
 
   dateElement.textContent =
     now.toLocaleDateString([], {
+
       weekday: "long",
+
       month: "long",
+
       day: "numeric",
     });
 
@@ -54,19 +63,26 @@ function updateClock() {
 
 function updateGreeting(hour) {
 
-  let text = "Good Evening";
+  let greetingText =
+    "Good Evening";
 
   if (hour < 12) {
-    text = "Good Morning";
-  } else if (hour < 18) {
-    text = "Good Afternoon";
+
+    greetingText =
+      "Good Morning";
+  }
+
+  else if (hour < 18) {
+
+    greetingText =
+      "Good Afternoon";
   }
 
   const username =
     localStorage.getItem("username") || "";
 
   greeting.textContent =
-    `${text}${username ? ", " + username : ""}`;
+    `${greetingText}${username ? ", " + username : ""}`;
 }
 
 setInterval(updateClock, 1000);
@@ -74,14 +90,16 @@ setInterval(updateClock, 1000);
 updateClock();
 
 /* =========================
-USERNAME STORAGE
+USERNAME
 ========================= */
 
 const savedUsername =
   localStorage.getItem("username");
 
 if (savedUsername) {
-  usernameInput.value = savedUsername;
+
+  usernameInput.value =
+    savedUsername;
 }
 
 usernameInput.addEventListener("input", () => {
@@ -102,7 +120,8 @@ searchForm.addEventListener("submit", (e) => {
 
   e.preventDefault();
 
-  const query = searchInput.value.trim();
+  const query =
+    searchInput.value.trim();
 
   if (!query) return;
 
@@ -118,20 +137,27 @@ function applyTheme(theme) {
 
   if (theme === "light") {
 
-    document.body.classList.add("light-theme");
+    document.body.classList.add(
+      "light-theme"
+    );
 
     themeToggle.innerHTML =
       '<i class="fa-solid fa-sun"></i>';
 
   } else {
 
-    document.body.classList.remove("light-theme");
+    document.body.classList.remove(
+      "light-theme"
+    );
 
     themeToggle.innerHTML =
       '<i class="fa-solid fa-moon"></i>';
   }
 
-  localStorage.setItem("theme", theme);
+  localStorage.setItem(
+    "theme",
+    theme
+  );
 }
 
 const savedTheme =
@@ -148,34 +174,38 @@ if (savedTheme) {
       "(prefers-color-scheme: light)"
     ).matches;
 
-  applyTheme(prefersLight ? "light" : "dark");
+  applyTheme(
+    prefersLight ? "light" : "dark"
+  );
 }
 
 themeToggle.addEventListener("click", () => {
 
   const isLight =
-    document.body.classList.contains("light-theme");
+    document.body.classList.contains(
+      "light-theme"
+    );
 
-  applyTheme(isLight ? "dark" : "light");
+  applyTheme(
+    isLight ? "dark" : "light"
+  );
 });
 
 /* =========================
 WEATHER
 ========================= */
-/*
-Uses open-meteo free API
-No API key required
-*/
 
 async function getWeather(lat, lon) {
 
   try {
 
-    const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
-    );
+    const response =
+      await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+      );
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     temperature.textContent =
       `${Math.round(data.current_weather.temperature)}°C`;
@@ -183,7 +213,7 @@ async function getWeather(lat, lon) {
     weatherDescription.textContent =
       "Minimal weather vibes";
 
-  } catch (error) {
+  } catch {
 
     weatherDescription.textContent =
       "Weather unavailable";
@@ -239,12 +269,6 @@ const defaultShortcuts = [
   },
 
   {
-    name: "Gmail",
-    icon: "fa-solid fa-envelope",
-    url: "https://mail.google.com",
-  },
-
-  {
     name: "Figma",
     icon: "fa-brands fa-figma",
     url: "https://figma.com",
@@ -254,6 +278,12 @@ const defaultShortcuts = [
     name: "Notion",
     icon: "fa-solid fa-book",
     url: "https://notion.so",
+  },
+
+  {
+    name: "Gmail",
+    icon: "fa-solid fa-envelope",
+    url: "https://mail.google.com",
   },
 ];
 
@@ -266,16 +296,19 @@ function loadShortcuts() {
 
   shortcutsGrid.innerHTML = "";
 
-  shortcuts.forEach((shortcut, index) => {
+  shortcuts.forEach((shortcut) => {
 
-    const card = document.createElement("a");
+    const card =
+      document.createElement("a");
 
     card.className =
-      "shortcut-card glass";
+      "shortcut-card";
 
-    card.href = shortcut.url;
+    card.href =
+      shortcut.url;
 
-    card.target = "_blank";
+    card.target =
+      "_blank";
 
     card.innerHTML = `
       <i class="${shortcut.icon}"></i>
@@ -289,33 +322,34 @@ function loadShortcuts() {
 loadShortcuts();
 
 /* =========================
-EDIT SHORTCUTS
+ADD SHORTCUT
 ========================= */
 
 document
   .getElementById("editShortcutsBtn")
   .addEventListener("click", () => {
 
-    const current =
+    const shortcuts =
       JSON.parse(
         localStorage.getItem("shortcuts")
       ) || defaultShortcuts;
 
     const name =
-      prompt("Shortcut Name:");
+      prompt("Shortcut Name");
 
     const url =
-      prompt("Shortcut URL:");
+      prompt("Shortcut URL");
 
     const icon =
       prompt(
-        "FontAwesome icon class:",
+        "FontAwesome Icon Class",
         "fa-solid fa-globe"
       );
 
     if (!name || !url) return;
 
-    current.push({
+    shortcuts.push({
+
       name,
       url,
       icon,
@@ -323,11 +357,55 @@ document
 
     localStorage.setItem(
       "shortcuts",
-      JSON.stringify(current)
+      JSON.stringify(shortcuts)
     );
 
     loadShortcuts();
   });
+
+/* =========================
+DRAGGABLE
+========================= */
+
+new Sortable(shortcutsGrid, {
+
+  animation: 250,
+
+  ghostClass:
+    "sortable-ghost",
+
+  chosenClass:
+    "sortable-chosen",
+
+  onEnd: () => {
+
+    const updated = [];
+
+    document
+      .querySelectorAll(".shortcut-card")
+      .forEach((card) => {
+
+        updated.push({
+
+          name:
+            card.querySelector("span")
+            .textContent,
+
+          icon:
+            card.querySelector("i")
+            .className,
+
+          url:
+            card.href,
+        });
+      });
+
+    localStorage.setItem(
+      "shortcuts",
+      JSON.stringify(updated)
+    );
+  }
+});
 
 /* =========================
 PWA
